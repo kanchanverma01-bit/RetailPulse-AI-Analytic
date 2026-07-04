@@ -35,16 +35,22 @@ if page == "Home":
     st.dataframe(df_transactions.head())
     st.dataframe(df_customers.head())
 
-# ---------------- DEMAND FORECASTING ----------------
+#---------------- DEMAND FORECASTING ----------------
 elif page == "Demand Forecasting":
     st.subheader("📈 Demand Forecasting")
 
-    numeric = df_transactions.select_dtypes(include='number')
+    numeric = df_transactions.select_dtypes(include="number")
 
     if numeric.shape[1] > 0:
-        st.line_chart(numeric)
+        # Sirf first 100 rows dikhayenge taaki app hang na ho
+        st.line_chart(numeric.head(100))
+
+        st.success("Demand Forecasting visualization loaded successfully.")
+
+        st.subheader("Sample Forecast Data")
+        st.dataframe(numeric.head(10))
     else:
-        st.warning("No numeric columns found")
+        st.warning("No numeric columns found.")
 
 # ---------------- CUSTOMER SEGMENTATION ----------------
 elif page == "Customer Segmentation":
